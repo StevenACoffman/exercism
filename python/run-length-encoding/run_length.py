@@ -1,22 +1,25 @@
 import re
-from functools import reduce
+from itertools import groupby
+
+numberAndLetter = re.compile(r'(\d*)(\D)', re.IGNORECASE | re.UNICODE)
 
 
-def encode(input):
-    return ''.join(reduce(compress, tokenize(input), []))
+def chunk(runLengthEncoding):
+    return [(int(k or '1'), g)
+            for k, g in re.findall(numberAndLetter, runLengthEncoding)]
 
 
-def decode(input):
-    return reduce(expand, chunk(input), '')
+def decode(ciphertext):
+    return ''.join([c * int(n) for n, c in chunk(ciphertext)])
 
 
-tokenize = lambda input: re.finditer(r'(.)\1*', input)
+def runLength(size):
+    if (size == 1):
+        return ''
 
-chunk = lambda input: re.findall(r'(\d*)(\D)', input)
+    return str(size)
 
-compress = lambda output, match: \
-    output + [('{}{}'.format(len(match.group()), match.group()[0]))] \
-        if len(match.group()) > 1 else output + [match.group()]
 
-expand = lambda a, b: \
-    a + b[1] if not b[0] else a + (b[1] * int(b[0]))
+def encode(plaintext):
+    return ''.join([runLength(len(list(g))) + k for k, g in groupby(plaintext)
+                    ])
