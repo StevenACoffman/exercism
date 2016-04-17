@@ -1,6 +1,6 @@
 import unittest
 
-from year import is_leap_year
+from leap import is_leap_year
 
 
 class YearTest(unittest.TestCase):
@@ -18,6 +18,7 @@ class YearTest(unittest.TestCase):
 
     def test_exceptional_century(self):
         self.assertIs(is_leap_year(2400), True)
+
 
 if __name__ == '__main__':
     unittest.main()

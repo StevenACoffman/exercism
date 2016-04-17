@@ -12,35 +12,35 @@ def teenth():
     return range(13, 19)
 
 
-def inMonth(day):
+def in_month(day):
     return day != 0
 
 
-def hasNumbers(inputString):
+def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
 
 
-def getNumber(s):
+def get_number(s):
     return int(s.rstrip('stndrd'))
 
 
-def dayOfWeek(name):
+def day_of_week(name):
     return weekdays.index(name)
 
 
-def whichRange(which):
+def which_range(which):
     if which == 'last':
         return [-1]
     elif which == 'first':
         return [0]
     elif which == 'teenth':
         return teenth()
-    elif hasNumbers(which):
-        return [getNumber(which)]
+    elif has_numbers(which):
+        return [get_number(which)]
 
 
 def meetup_day(year, month, weekday, which):
-    return datetime.date(year, month,
-                         [x
-                          for x in currentCalendar.itermonthdays2(year, month)
-                          if inMonth(x[0]) and x[1] in whichRange(which)][0])
+    return datetime.date(
+        year, month, [x
+                      for x in currentCalendar.itermonthdays2(year, month)
+                      if in_month(x[0]) and x[1] in which_range(which)][0][0])
