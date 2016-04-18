@@ -1,7 +1,7 @@
 from datetime import date
 import unittest
 
-from meetup import meetup_day
+from meetup import meetup_day, in_month, get_number, day_of_week
 
 try:
     from meetup import MeetupDayException
@@ -10,12 +10,25 @@ except ImportError:
 
 
 class MeetupTest(unittest.TestCase):
-    @unittest.skip("testing skipping")
+    def test_get_number_first(self):
+        self.assertEqual(0, get_number('1st'))
+
+    def test_get_number_second(self):
+        self.assertEqual(1, get_number('2nd'))
+
+    def test_get_number_third(self):
+        self.assertEqual(2, get_number('3rd'))
+
+    def test_get_number_fourth(self):
+        self.assertEqual(3, get_number('4th'))
+
+    def test_day_of_week(self):
+        self.assertEqual(1, day_of_week('Tuesday'))
+
     def test_monteenth_of_may_2013(self):
         self.assertEqual(
             date(2013, 5, 13), meetup_day(2013, 5, 'Monday', 'teenth'))
 
-    @unittest.skip("testing skipping")
     def test_saturteenth_of_february_2013(self):
         self.assertEqual(
             date(2013, 2, 16), meetup_day(2013, 2, 'Saturday', 'teenth'))
@@ -24,47 +37,38 @@ class MeetupTest(unittest.TestCase):
         self.assertEqual(
             date(2013, 5, 7), meetup_day(2013, 5, 'Tuesday', '1st'))
 
-    @unittest.skip("testing skipping")
     def test_second_monday_of_april_2013(self):
         self.assertEqual(
             date(2013, 4, 8), meetup_day(2013, 4, 'Monday', '2nd'))
 
-    @unittest.skip("testing skipping")
     def test_third_thursday_of_september_2013(self):
         self.assertEqual(
             date(2013, 9, 19), meetup_day(2013, 9, 'Thursday', '3rd'))
 
-    @unittest.skip("testing skipping")
     def test_fourth_sunday_of_march_2013(self):
         self.assertEqual(
             date(2013, 3, 24), meetup_day(2013, 3, 'Sunday', '4th'))
 
-    @unittest.skip("testing skipping")
     def test_last_thursday_of_october_2013(self):
         self.assertEqual(
             date(2013, 10, 31), meetup_day(2013, 10, 'Thursday', 'last'))
 
-    @unittest.skip("testing skipping")
     def test_last_wednesday_of_february_2012(self):
         self.assertEqual(
             date(2012, 2, 29), meetup_day(2012, 2, 'Wednesday', 'last'))
 
-    @unittest.skip("testing skipping")
     def test_last_wednesday_of_december_2014(self):
         self.assertEqual(
             date(2014, 12, 31), meetup_day(2014, 12, 'Wednesday', 'last'))
 
-    @unittest.skip("testing skipping")
     def test_last_sunday_of_only_four_week_february_2015(self):
         self.assertEqual(
             date(2015, 2, 22), meetup_day(2015, 2, 'Sunday', 'last'))
 
-    @unittest.skip("testing skipping")
     def test_first_friday_of_december_2012(self):
         self.assertEqual(
             date(2012, 12, 7), meetup_day(2012, 12, 'Friday', '1st'))
 
-    @unittest.skip("testing skipping")
     def test_fifth_monday_of_march_2015(self):
         self.assertEqual(
             date(2015, 3, 30), meetup_day(2015, 3, 'Monday', '5th'))
