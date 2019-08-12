@@ -226,3 +226,7 @@ test-results.xml
 .gitignore
 
 
+### EXERCISM ####
+.exercism
+
+
